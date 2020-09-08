@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
+import {StoreModule} from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -12,12 +13,13 @@ import {RouterModule} from '@angular/router';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({}),
     RouterModule.forRoot([
       {
         path: '',
         loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
       }
-    ], {enableTracing: true})
+    ], {enableTracing: false})
   ],
   providers: [],
   bootstrap: [AppComponent]
