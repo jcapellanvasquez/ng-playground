@@ -12,6 +12,7 @@ import {reducer} from './store/reducer';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CardModule,
     InputTextModule,
     InputTextareaModule,
-    InputNumberModule
+    InputNumberModule,
+    CheckboxModule
   ],
 })
 export class ProductsModule {
