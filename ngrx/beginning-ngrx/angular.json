@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "beginning-ngrx"
+    }
+  },
+  "defaultProject": "beginning-ngrx",
+  "cli": {
+    "analytics": false
+  }
 }

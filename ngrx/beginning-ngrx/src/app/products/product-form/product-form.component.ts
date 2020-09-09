@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {State} from '../store/reducer';
 import {AddProductAction} from '../store/actions';
+import {Product} from "../../shared/product";
 
 @Component({
   selector: 'app-product-form',
@@ -29,7 +30,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   public save() {
-    this.store.dispatch(new AddProductAction(this.form.value))
+    this.store.dispatch(new AddProductAction({product: {...this.form.value}}))
   }
 
   get form(): FormGroup {
