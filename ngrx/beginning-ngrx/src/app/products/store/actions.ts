@@ -1,4 +1,4 @@
-import {Action} from '@ngrx/store';
+import {Action, createAction, props} from '@ngrx/store';
 import {Product} from '../../shared/product';
 
 export enum ProductActionTypes {
@@ -6,6 +6,7 @@ export enum ProductActionTypes {
   AddProductSuccess = '[Product] Add Product Success',
   AddProductFailure = '[Product] Add Product Failure'
 }
+
 
 export class AddProductAction implements Action {
   readonly type = ProductActionTypes.AddProduct;

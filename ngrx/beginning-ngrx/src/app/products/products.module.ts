@@ -14,6 +14,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {CheckboxModule} from 'primeng/checkbox';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ProductService} from './product.service';
+import {ProductEffect} from './store/effects';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -24,6 +27,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     StoreModule.forFeature('Products', reducer),
+    EffectsModule.forFeature([ProductEffect]),
     ProductsRoutingModule,
     ButtonModule,
     PanelModule,
@@ -35,6 +39,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
+  providers: [ProductService]
 })
 export class ProductsModule {
 }

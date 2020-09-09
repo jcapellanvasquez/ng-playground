@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {State} from '../store/reducer';
+import {AddProductAction} from '../store/actions';
 
 @Component({
   selector: 'app-product-form',
@@ -11,12 +14,13 @@ export class ProductFormComponent implements OnInit {
 
   private _form: FormGroup;
 
-  constructor(public router: Router, private fb: FormBuilder) {
+  constructor(public router: Router, private fb: FormBuilder, public store: Store<State>) {
 
     this._form = this.fb.group({
-      title: [''],
+      id: [''],
+      title: ['', [Validators.required]],
       description: [''],
-      quantity: [''],
+      quantity: ['', [Validators.required]],
       status: [false],
     });
   }
@@ -25,7 +29,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   public save() {
-    console.log(this._form.value);
+    this.store.dispatch(new AddProductAction(this.form.value))
   }
 
   get form(): FormGroup {
