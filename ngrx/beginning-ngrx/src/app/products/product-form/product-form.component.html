@@ -4,42 +4,43 @@
   </div>
   <div class="p-col-12 p-col-lg-4 p-md-6">
     <p-card>
-      <form>
+      <form (ngSubmit)="save()" [formGroup]="this.form">
         <div class="p-fluid">
           <div class="p-field">
             <label>Title</label>
-            <input pInputText type="text">
+            <input formControlName="title" pInputText type="text">
           </div>
           <div class="p-field">
             <label>Description</label>
-            <textarea pInputTextarea ></textarea>
+            <textarea formControlName="description" pInputTextarea></textarea>
           </div>
           <div class="p-field">
             <label>Quantity</label>
-            <p-inputNumber></p-inputNumber>
+            <p-inputNumber formControlName="quantity"></p-inputNumber>
           </div>
           <div class="p-field">
-            <p-checkbox label="Status"></p-checkbox>
+            <p-checkbox [binary]="true" formControlName="status" label="Status"></p-checkbox>
           </div>
         </div>
+        <p-footer>
+          <div class="p-grid p-flex-row p-jc-between">
+            <button
+              pButton
+              label="Go to Products"
+              icon="pi pi-arrow-left"
+              class=" p-button-text p-button-secondary p-button-sm"
+              (click)="this.router.navigate(['/product'])"
+            ></button>
+            <button
+              pButton
+              label="Save"
+              icon="pi pi-check"
+              class="p-button-raised p-button-text p-button-success p-button-sm"
+              type="submit"
+            ></button>
+          </div>
+        </p-footer>
       </form>
-      <p-footer>
-        <div class="p-grid p-flex-row p-jc-between">
-          <button
-            pButton
-            label="Go to Products"
-            icon="pi pi-arrow-left"
-            class=" p-button-text p-button-secondary p-button-sm"
-            (click)="this.router.navigate(['/product'])"
-          ></button>
-          <button
-            pButton
-            label="Save"
-            icon="pi pi-check"
-            class="p-button-raised p-button-text p-button-success p-button-sm"
-          ></button>
-        </div>
-      </p-footer>
     </p-card>
   </div>
 </div>

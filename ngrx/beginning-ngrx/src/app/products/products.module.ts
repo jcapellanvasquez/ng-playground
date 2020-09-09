@@ -13,6 +13,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {CheckboxModule} from 'primeng/checkbox';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import {CheckboxModule} from 'primeng/checkbox';
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,
-    CheckboxModule
+    CheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class ProductsModule {
