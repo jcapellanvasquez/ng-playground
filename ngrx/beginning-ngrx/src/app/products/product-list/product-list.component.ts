@@ -5,6 +5,7 @@ import {State} from '../store/reducer';
 import {Observable} from 'rxjs';
 import {Product} from '../../shared/product';
 import {getProducts} from '../store/selectors';
+import {LoadProductsAction} from "../store/actions";
 
 @Component({
   selector: 'app-product-list',
@@ -14,17 +15,18 @@ import {getProducts} from '../store/selectors';
   ]
 })
 export class ProductListComponent implements OnInit {
-  public products$: Observable<Product[]>;
+  public products$: Observable<any>;
 
   constructor(
     public router: Router,
     public store: Store<State>
   ) {
-    this.products$ = this.store.select(getProducts);
-    this.products$.subscribe(console.log)
+
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new LoadProductsAction());
+    this.products$ = this.store.select(getProducts);
   }
 
 }

@@ -36,7 +36,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   public save() {
-    // this.productService.addProduct({...this.form.value}).subscribe(console.log);
     this.store.dispatch(new AddProductAction({product: {...this.form.value}}));
   }
 

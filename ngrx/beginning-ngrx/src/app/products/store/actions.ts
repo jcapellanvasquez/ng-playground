@@ -35,7 +35,7 @@ export class AddProductActionFailure implements Action {
 export class LoadProductsAction implements Action {
   readonly type = ProductActionTypes.LoadProducts;
 
-  constructor(public readonly payload: { products: Product[] }) {
+  constructor() {
   }
 }
 
@@ -49,10 +49,10 @@ export class LoadProductsActionFailure implements Action {
 export class LoadProductsActionSuccess implements Action {
   readonly type = ProductActionTypes.LoadProductsSuccess;
 
-  constructor(public readonly payload: { success: string }) {
+  constructor(public readonly payload: { products: Product[] }) {
   }
 }
 
 
-export type ProductActions = AddProductAction | AddProductActionFailure | AddProductActionSuccess;
+export type ProductActions = AddProductAction | AddProductActionFailure | AddProductActionSuccess | LoadProductsAction | LoadProductsActionFailure | LoadProductsActionSuccess;
 
