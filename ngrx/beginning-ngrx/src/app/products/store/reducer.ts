@@ -1,6 +1,5 @@
 import {Product} from '../../shared/product';
 import {ProductActions, ProductActionTypes} from './actions';
-import {act} from '@ngrx/effects';
 
 export interface State {
   products: Product[];
@@ -19,7 +18,7 @@ export function reducer(state = initializeState, action: ProductActions): State 
     }
     case ProductActionTypes.AddProductSuccess: {
       return {
-        ...state
+        ...action.payload
       };
     }
     case ProductActionTypes.AddProductFailure: {

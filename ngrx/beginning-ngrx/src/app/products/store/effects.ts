@@ -4,7 +4,7 @@ import {ProductService} from '../product.service';
 import {Router} from '@angular/router';
 import {concat, EMPTY, Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
-import {AddProductActionSuccess, ProductActionTypes} from './actions';
+import {AddProductAction, AddProductActionSuccess, ProductActionTypes} from './actions';
 import {catchError, concatMap, map, mergeMap, switchMap} from 'rxjs/operators';
 
 
@@ -12,15 +12,16 @@ import {catchError, concatMap, map, mergeMap, switchMap} from 'rxjs/operators';
 export class ProductEffect {
 
   @Effect()
-  addProduct$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActionTypes.AddProduct),
-    mergeMap(
-      ()=> this.productService.getAll().pipe(
-        map(products => new AddProductActionSuccess({products: products})),
-        catchError(()=> EMPTY)
-      )
-    )
-  ));
+  addProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActionTypes.AddProduct),
+      map((action: AddProductAction) => action.payload.product),
+      switchMap(product => this.productService.addProduct(product)),
+      map(products => new AddProductActionSuccess({products: products}))
+    );
+  }, {dispatch: false});
+
+
 
   constructor(private productService: ProductService, private actions$: Actions, private router: Router) {
   }

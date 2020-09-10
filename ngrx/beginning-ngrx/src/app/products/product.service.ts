@@ -17,11 +17,14 @@ export class ProductService {
   }
 
   public getProducts(): Product[] {
-    return <Product[]> JSON.parse(localStorage.getItem('products'));
+    return <Product[]>JSON.parse(localStorage.getItem('products'));
   }
 
-  public setProducts(pproducts: Product[]) {
-    localStorage.setItem('products', JSON.stringify(pproducts));
+  public setProducts(products: Product[]) {
+    if (!this.getProducts()) {
+      localStorage.setItem('products', JSON.stringify(products));
+    }
+
   }
 
   public getAll(): Observable<Product[]> {
