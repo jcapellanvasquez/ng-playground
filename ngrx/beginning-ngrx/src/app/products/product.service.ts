@@ -23,4 +23,8 @@ export class ProductService {
   public setProducts(pproducts: Product[]) {
     localStorage.setItem('products', JSON.stringify(pproducts));
   }
+
+  public getAll(): Observable<Product[]> {
+    return new Observable(subscriber => subscriber.next(this.getProducts()))
+  }
 }

@@ -18,14 +18,14 @@ export class AddProductAction implements Action {
 export class AddProductActionSuccess implements Action {
   readonly type = ProductActionTypes.AddProductSuccess;
 
-  constructor(public readonly payload: { error: string }) {
+  constructor(public readonly payload: { products: Product[] }) {
   }
 }
 
 export class AddProductActionFailure implements Action {
   readonly type = ProductActionTypes.AddProductFailure;
 
-  constructor(public readonly payload: { message: string }) {
+  constructor(public readonly payload: { success: string }) {
   }
 }
 

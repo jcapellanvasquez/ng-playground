@@ -20,7 +20,8 @@ export class ProductListComponent implements OnInit {
     public router: Router,
     public store: Store<State>
   ) {
-    this.products$ = this.store.select(getProducts)
+    this.products$ = this.store.select(getProducts);
+    this.products$.subscribe(console.log)
   }
 
   ngOnInit(): void {
