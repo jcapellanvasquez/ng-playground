@@ -22,7 +22,6 @@ export class ProductEffect {
   }, {dispatch: false});
 
 
-
   constructor(private productService: ProductService, private actions$: Actions, private router: Router) {
   }
 }
