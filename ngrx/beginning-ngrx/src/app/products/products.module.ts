@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from './product.service';
 import {ProductEffect} from './store/effects';
 import {EffectsModule} from '@ngrx/effects';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {EffectsModule} from '@ngrx/effects';
     InputNumberModule,
     CheckboxModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ],
   providers: [ProductService]
 })

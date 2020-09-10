@@ -4,7 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {State} from '../store/reducer';
 import {AddProductAction} from '../store/actions';
-import {Product} from "../../shared/product";
+import {Product} from '../../shared/product';
+import {ProductService} from '../product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -15,7 +16,12 @@ export class ProductFormComponent implements OnInit {
 
   private _form: FormGroup;
 
-  constructor(public router: Router, private fb: FormBuilder, public store: Store<State>) {
+  constructor(
+    public router: Router,
+    private fb: FormBuilder,
+    public store: Store<State>,
+    private productService: ProductService
+  ) {
 
     this._form = this.fb.group({
       id: [''],
@@ -30,7 +36,8 @@ export class ProductFormComponent implements OnInit {
   }
 
   public save() {
-    this.store.dispatch(new AddProductAction({product: {...this.form.value}}))
+    this.productService.addProduct({...this.form.value}).subscribe(console.log);
+    this.store.dispatch(new AddProductAction({product: {...this.form.value}}));
   }
 
   get form(): FormGroup {
