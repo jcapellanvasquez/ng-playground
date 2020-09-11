@@ -1,10 +1,11 @@
-<div class="p-grid" class="p-component">
-  <div class="p-col-12">
-    <h2 class="p-m-1">My amazing store - New Product</h2>
-  </div>
-  <div class="p-col-12 p-col-lg-4 p-md-6">
-    <p-card>
-      <form (ngSubmit)="save()" [formGroup]="this.form">
+<form (ngSubmit)="save()" [formGroup]="this.form">
+
+  <div class="p-grid" class="p-component">
+    <div class="p-col-12">
+      <h2 class="p-m-1">My amazing store - New Product</h2>
+    </div>
+    <div class="p-col-12 p-col-lg-4 p-md-6">
+      <p-card>
         <div class="p-fluid">
           <div class="p-field">
             <label>Title</label>
@@ -22,7 +23,7 @@
             <p-checkbox [binary]="true" formControlName="status" label="Status"></p-checkbox>
           </div>
         </div>
-        <p-footer>
+        <ng-template pTemplate="footer">
           <div class="p-grid p-flex-row p-jc-between">
             <button
               pButton
@@ -35,12 +36,12 @@
               pButton
               label="Save"
               icon="pi pi-check"
-              class="p-button-raised p-button-text p-button-success p-button-sm"
+              class="p-button-rounded p-button-text p-button-primary p-button-sm"
               type="submit"
             ></button>
           </div>
-        </p-footer>
-      </form>
-    </p-card>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
-</div>
+</form>

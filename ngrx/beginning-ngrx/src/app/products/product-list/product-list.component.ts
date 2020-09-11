@@ -9,9 +9,7 @@ import {LoadProductsAction} from "../store/actions";
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styles: [
-    'h2 { color: #495057}'
-  ]
+  styles: []
 })
 export class ProductListComponent implements OnInit {
   public products$: Observable<any>;
