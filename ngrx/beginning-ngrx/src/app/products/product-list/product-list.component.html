@@ -19,7 +19,7 @@
             <td>{{product.description}}</td>
             <td>{{product.quantity | number}}</td>
             <td>
-              <p-tableCheckbox  [value]="product.status"></p-tableCheckbox>
+              {{product.status ? 'Active' : 'Inactive'}}
             </td>
           </tr>
         </ng-template>

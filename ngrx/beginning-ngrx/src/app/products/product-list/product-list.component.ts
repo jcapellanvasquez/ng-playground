@@ -15,6 +15,7 @@ import {LoadProductsAction} from "../store/actions";
 })
 export class ProductListComponent implements OnInit {
   public products$: Observable<any>;
+  public status: any;
 
   constructor(
     public router: Router,
