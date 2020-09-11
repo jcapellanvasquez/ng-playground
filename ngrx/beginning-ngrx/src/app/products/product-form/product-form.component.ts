@@ -20,7 +20,6 @@ export class ProductFormComponent implements OnInit {
     public router: Router,
     private fb: FormBuilder,
     public store: Store<State>,
-    private productService: ProductService
   ) {
 
     this._form = this.fb.group({
