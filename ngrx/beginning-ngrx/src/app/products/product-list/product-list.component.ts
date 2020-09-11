@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {State} from '../store/reducer';
 import {Observable} from 'rxjs';
-import {Product} from '../../shared/product';
 import {getProducts} from '../store/selectors';
 import {LoadProductsAction} from "../store/actions";
 
