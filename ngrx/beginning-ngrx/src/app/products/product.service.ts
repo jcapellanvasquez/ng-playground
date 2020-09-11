@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Product} from '../shared/product';
 import {Observable} from 'rxjs';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class ProductService {
@@ -34,6 +35,16 @@ export class ProductService {
   }
 
   public getAll(): Observable<Product[]> {
-    return new Observable(subscriber => subscriber.next(this.getProducts()));
+    return this.productsDB.snapshotChanges().pipe(
+      map( changes => {
+        return changes.map(row=> {
+          return {
+            $key: row.key,
+            ...row.payload.val()
+          }
+        })
+      })
+    );
+    //return new Observable(subscriber => subscriber.next(this.getProducts()));
   }
 }

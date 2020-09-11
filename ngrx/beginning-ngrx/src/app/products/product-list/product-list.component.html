@@ -7,7 +7,6 @@
       <p-table [value]="products$ | async">
         <ng-template pTemplate="header">
           <tr>
-            <th>Id.</th>
             <th>Title</th>
             <th>Description</th>
             <th>Quantity</th>
@@ -16,12 +15,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-product>
           <tr>
-            <td>{{product.key}}</td>
             <td>{{product.title}}</td>
             <td>{{product.description}}</td>
             <td>{{product.quantity | number}}</td>
             <td>
-              <p-tableCheckbox  [value]="product"></p-tableCheckbox>
+              <p-tableCheckbox  [value]="product.status"></p-tableCheckbox>
             </td>
           </tr>
         </ng-template>
