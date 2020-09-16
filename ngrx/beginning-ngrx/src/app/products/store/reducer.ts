@@ -1,40 +1,52 @@
 import {Product} from '../../shared/product';
-import {ProductActions, ProductActionTypes} from './actions';
+import {LoadProductsActionSuccess, ProductActions, ProductActionTypes} from './actions';
 
 export interface State {
   products: Product[];
-  prop?: string
+  selectedProduct: Product
+  error?: string,
+  success?: string
 }
 
 export const initializeState: State = {
-  products: []
+  products: [],
+  selectedProduct: null
 };
 
 export function reducer(state = initializeState, action: ProductActions): State {
   switch (action.type) {
     case ProductActionTypes.AddProductSuccess: {
       return {
-        products: action.payload.products
+        ...state,
+        error: '',
+        success: action.payload.message
       };
     }
     case ProductActionTypes.AddProductFailure: {
       return {
-        ...state
+        ...state,
+        error: action.payload.error
       };
     }
     case ProductActionTypes.LoadProducts: {
       return {
         ...state
-      }
+      };
     }
     case ProductActionTypes.LoadProductsSuccess: {
       return {
+        ...state,
         products: action.payload.products
-      }
+      };
+    }
+    case ProductActionTypes.LoadProductSuccess: {
+      return {
+        ...state,
+        selectedProduct: action.payload.product
+      };
     }
     default: {
       return state;
     }
   }
-
 }

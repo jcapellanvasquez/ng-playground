@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Product} from '../shared/product';
 import {Observable} from 'rxjs';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
-import {map} from "rxjs/operators";
+import {map, take} from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
@@ -12,15 +12,12 @@ export class ProductService {
     private db: AngularFireDatabase
   ) {
     this.setProducts([]);
-    this.productsDB = this.db.list('/products', products => products.child("title"));
+    this.productsDB = this.db.list('/products', products => products.child('title'));
   }
 
-  public addProduct(product: Product): Observable<Product[]> {
-    let products = this.getProducts();
-    products.push(product);
-    this.setProducts(products);
+  public addProduct(product: Product): Observable<Product> {
     this.productsDB.push(product);
-    return new Observable(subscriber => subscriber.next(products));
+    return new Observable(subscriber => subscriber.next(product));
   }
 
   public getProducts(): Product[] {
@@ -36,15 +33,11 @@ export class ProductService {
 
   public getAll(): Observable<Product[]> {
     return this.productsDB.snapshotChanges().pipe(
-      map( changes => {
-        return changes.map(row=> {
-          return {
-            $key: row.key,
-            ...row.payload.val()
-          }
-        })
-      })
+      map(changes => changes.map(product => ({$key: product.key, ...product.payload.val()})))
     );
-    //return new Observable(subscriber => subscriber.next(this.getProducts()));
+  }
+
+  public getProduct(key: string): Observable<Product> {
+    return this.getAll().pipe(map(products => products.find(p => p.$key===key)));
   }
 }

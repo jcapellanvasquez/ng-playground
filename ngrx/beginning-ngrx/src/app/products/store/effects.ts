@@ -5,13 +5,18 @@ import {Router} from '@angular/router';
 import {concat, EMPTY, Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {
-  AddProductAction,
+  AddProductAction, AddProductActionFailure,
   AddProductActionSuccess,
   LoadProductsActionFailure,
   LoadProductsActionSuccess,
-  ProductActionTypes
+  ProductActionTypes,
+  LoadProductAction,
+  LoadProductActionFailure,
+  ProductActions,
+  LoadProductActionSuccess,
+  LoadProductsAction
 } from './actions';
-import {catchError, concatMap, map, mergeMap, switchMap} from 'rxjs/operators';
+import {catchError, concatMap, map, mergeMap, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -22,8 +27,11 @@ export class ProductEffect {
     return this.actions$.pipe(
       ofType(ProductActionTypes.AddProduct),
       map((action: AddProductAction) => action.payload.product),
-      switchMap(product => this.productService.addProduct(product)),
-      map(products => new AddProductActionSuccess({products: products}))
+      switchMap(product => this.productService.addProduct(product).pipe(
+        map(product => new AddProductActionSuccess({message: 'Product saved'})),
+        catchError(error => of(new AddProductActionFailure({error: 'Failed saving the new product'})))
+        )
+      ),
     );
   }, {dispatch: false});
 
@@ -31,14 +39,28 @@ export class ProductEffect {
   loadProducts$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductActionTypes.LoadProducts),
-      mergeMap(()=> this.productService.getAll()
+      switchMap(() => this.productService.getAll()
         .pipe(
           map(products => new LoadProductsActionSuccess({products: products})),
-          catchError(() => of(new LoadProductsActionFailure({message: "Ocurrio un error al cargar los datos"})))
+          catchError(() => of(new LoadProductsActionFailure({error: 'Failed to load products'})))
         )
       )
-    )
-  });
+    );
+  }, {dispatch: false});
+
+  @Effect()
+  loadProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActionTypes.LoadProduct),
+      map((action: LoadProductAction) => action.payload.key),
+      switchMap(
+        (key) => this.productService.getProduct(key).pipe(
+          map(product => new LoadProductActionSuccess({product: product})),
+          catchError(error => of(new LoadProductActionFailure({error: 'Failed to load the product'})))
+        )
+      )
+    );
+  }, {dispatch: false});
 
   constructor(private productService: ProductService, private actions$: Actions, private router: Router) {
   }

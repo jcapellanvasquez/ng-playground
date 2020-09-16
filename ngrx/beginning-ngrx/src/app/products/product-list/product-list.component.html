@@ -4,7 +4,12 @@
   </div>
   <div class="p-col-12">
     <p-card>
-      <p-table [value]="products$ | async">
+      <p-table
+        [value]="products$ | async"
+        [rowHover]="true"
+        [paginator]="true"
+        [rows]="5"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th></th>
@@ -22,7 +27,7 @@
                 type="button"
                 class="p-button-rounded p-button-text p-button-plain"
                 icon="pi pi-pencil"
-                (click)="this.router.navigate(['/product/', product.$key])"
+                (click)="this.router.navigate(['/product/', product?.$key])"
               ></button>
             </td>
             <td>{{product.title}}</td>
