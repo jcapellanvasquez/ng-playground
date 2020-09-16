@@ -33,11 +33,16 @@ export class ProductService {
 
   public getAll(): Observable<Product[]> {
     return this.productsDB.snapshotChanges().pipe(
-      map(changes => changes.map(product => ({$key: product.key, ...product.payload.val()})))
+      map(changes => changes.map(product => ({key: product.key, ...product.payload.val()})))
     );
   }
 
   public getProduct(key: string): Observable<Product> {
-    return this.getAll().pipe(map(products => products.find(p => p.$key===key)));
+    return this.getAll().pipe(map(products => products.find(p => p.key === key)));
+  }
+
+  public updateProduct(product: Product): Observable<Product> {
+    this.productsDB.update(product.key, {...product});
+    return new Observable(subscriber => subscriber.next(product));
   }
 }

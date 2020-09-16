@@ -14,7 +14,7 @@ import {
   LoadProductActionFailure,
   ProductActions,
   LoadProductActionSuccess,
-  LoadProductsAction
+  LoadProductsAction, UpdateProductAction, UpdateProductActionSuccess, UpdateProductActionFailure
 } from './actions';
 import {catchError, concatMap, map, mergeMap, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 
@@ -30,6 +30,19 @@ export class ProductEffect {
       switchMap(product => this.productService.addProduct(product).pipe(
         map(product => new AddProductActionSuccess({message: 'Product saved'})),
         catchError(error => of(new AddProductActionFailure({error: 'Failed saving the new product'})))
+        )
+      ),
+    );
+  }, {dispatch: false});
+
+  @Effect()
+  updateProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActionTypes.UpdateProduct),
+      map((action: UpdateProductAction) => action.payload.product),
+      switchMap(product => this.productService.updateProduct(product).pipe(
+        map(product => new UpdateProductActionSuccess({message: 'Product updated'})),
+        catchError(error => of(new UpdateProductActionFailure({error: 'Failed updating the new product'})))
         )
       ),
     );
